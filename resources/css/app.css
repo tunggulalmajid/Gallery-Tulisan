@@ -1,2 +1,166 @@
 @import "tailwindcss";
 @source "../js";
+
+@theme {
+    /* ── Palette Feminim – Rose Dusty & Mauve ── */
+    --color-blush-50:  #fdf6f7;
+    --color-blush-100: #faeaed;
+    --color-blush-200: #f4d0d7;
+    --color-blush-300: #e9aab5;
+    --color-blush-400: #db7f92;
+    --color-blush-500: #c95a72;
+    --color-blush-600: #b0405a;
+    --color-blush-700: #933147;
+    --color-blush-800: #7a2a3e;
+    --color-blush-900: #672638;
+
+    --color-mauve-50:  #f8f5f9;
+    --color-mauve-100: #f0eaf4;
+    --color-mauve-200: #e1d5ea;
+    --color-mauve-300: #c9b5d7;
+    --color-mauve-400: #ab8fbf;
+    --color-mauve-500: #8f6ea6;
+    --color-mauve-600: #77568d;
+    --color-mauve-700: #634574;
+    --color-mauve-800: #533a61;
+    --color-mauve-900: #463252;
+
+    --color-rose-mist-50:  #fef7f5;
+    --color-rose-mist-100: #fdeee9;
+    --color-rose-mist-200: #faddd3;
+    --color-rose-mist-300: #f5c0ad;
+    --color-rose-mist-400: #ed9a7f;
+    --color-rose-mist-500: #e27455;
+    --color-rose-mist-600: #cd5538;
+    --color-rose-mist-700: #ab412a;
+    --color-rose-mist-800: #8e3725;
+    --color-rose-mist-900: #763123;
+
+    --color-cream-50:  #fdfcfa;
+    --color-cream-100: #faf7f2;
+    --color-cream-200: #f4ede2;
+    --color-cream-300: #ebdecb;
+    --color-cream-400: #dfc9ad;
+    --color-cream-500: #d0b08c;
+    --color-cream-600: #bc9568;
+    --color-cream-700: #9d7a51;
+    --color-cream-800: #826444;
+    --color-cream-900: #6c5239;
+
+    --color-ink-50:  #f5f4f6;
+    --color-ink-100: #eceaf0;
+    --color-ink-200: #d8d4e1;
+    --color-ink-300: #bab3cc;
+    --color-ink-400: #9688b3;
+    --color-ink-500: #786299;
+    --color-ink-600: #634e81;
+    --color-ink-700: #533f6c;
+    --color-ink-800: #46365b;
+    --color-ink-900: #3c2f4e;
+
+    --font-serif: 'Lora', 'Georgia', serif;
+    --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Base ── */
+body {
+    font-family: var(--font-sans);
+    background-color: var(--color-cream-50);
+    color: var(--color-ink-900);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+}
+
+/* ── TipTap prose output ── */
+.prose-writing {
+    font-family: var(--font-serif);
+    line-height: 1.9;
+    color: var(--color-ink-800);
+}
+
+.prose-writing p {
+    margin-bottom: 1.25rem;
+}
+
+.prose-writing strong {
+    color: var(--color-ink-900);
+    font-weight: 600;
+}
+
+.prose-writing em {
+    color: var(--color-blush-700);
+}
+
+.prose-writing a {
+    color: var(--color-blush-600);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.prose-writing a:hover {
+    color: var(--color-blush-800);
+}
+
+.prose-writing blockquote {
+    border-left: 3px solid var(--color-blush-300);
+    padding-left: 1.25rem;
+    margin: 1.5rem 0;
+    color: var(--color-ink-600);
+    font-style: italic;
+}
+
+.prose-writing .iframe-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    margin: 1.5rem 0;
+    border-radius: 0.5rem;
+}
+
+.prose-writing .iframe-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+}
+
+.prose-writing img {
+    max-width: 100%;
+    border-radius: 0.5rem;
+    margin: 1.25rem auto;
+}
+
+/* ── TipTap editor ── */
+.tiptap-editor .ProseMirror {
+    min-height: 320px;
+    outline: none;
+    font-family: var(--font-serif);
+    line-height: 1.9;
+    color: var(--color-ink-800);
+    padding: 1rem;
+}
+
+.tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
+    color: var(--color-ink-400);
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: var(--color-cream-100);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-blush-300);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-blush-400);
+}
