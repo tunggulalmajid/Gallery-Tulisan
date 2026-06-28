@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import AdminLayout from '@/Layouts/AdminLayout.vue';
 import TiptapEditor from '@/Components/TiptapEditor.vue';
+import ImageUpload from '@/Components/ImageUpload.vue';
 import { useForm } from '@inertiajs/vue3';
+import { watch } from 'vue';
 import type { Collection, Writing, WritingType } from '@/types';
 
 const props = defineProps<{
@@ -25,6 +27,23 @@ const form = useForm({
     written_at:    props.writing?.written_at ?? '',
 });
 
+function generateSlug(text: string): string {
+    return text
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/[\s_]+/g, '-')
+        .replace(/-+/g, '-')
+        .replace(/^-+|-+$/g, '');
+}
+
+// Auto-generate slug dari judul — hanya saat create, bukan edit
+watch(() => form.title, (val) => {
+    if (!isEdit) {
+        form.slug = generateSlug(val);
+    }
+});
+
 function submit() {
     if (isEdit) {
         form.post(`/admin/writings/${props.writing!.id}?_method=PATCH`, {
@@ -33,15 +52,6 @@ function submit() {
     } else {
         form.post('/admin/writings');
     }
-}
-
-function onFileChange(e: Event) {
-    const file = (e.target as HTMLInputElement).files?.[0] ?? null;
-    form.thumbnail = file;
-}
-
-function thumbnailUrl(path: string | null): string {
-    return path ? `/storage/${path}` : '';
 }
 </script>
 
@@ -58,7 +68,7 @@ function thumbnailUrl(path: string | null): string {
             <div class="lg:col-span-2 space-y-5">
                 <!-- Title -->
                 <div>
-                    <label class="block text-sm font-medium mb-1.5" style="color: var(--color-ink-700)">Judul <span style="color: var(--color-blush-500)">*</span></label>
+                    <label class="block text-sm font-medium mb-1.5" style="color: var(--color-ink-700)">Judul <span style="color: #ef4444">*</span></label>
                     <input
                         v-model="form.title"
                         type="text"
@@ -84,7 +94,7 @@ function thumbnailUrl(path: string | null): string {
 
                 <!-- Content / TipTap -->
                 <div>
-                    <label class="block text-sm font-medium mb-1.5" style="color: var(--color-ink-700)">Isi Tulisan <span style="color: var(--color-blush-500)">*</span></label>
+                    <label class="block text-sm font-medium mb-1.5" style="color: var(--color-ink-700)">Isi Tulisan <span style="color: #ef4444">*</span></label>
                     <TiptapEditor
                         v-model="form.content"
                         placeholder="Mulai menulis karya indahmu..."
@@ -95,20 +105,20 @@ function thumbnailUrl(path: string | null): string {
 
             <!-- Sidebar: Settings -->
             <div class="space-y-5">
-                <!-- Publish toggle -->
+                <!-- Publish + Save -->
                 <div class="rounded-2xl p-4" style="background-color: white; border: 1px solid var(--color-cream-200)">
                     <div class="flex items-center justify-between mb-4">
                         <h3 class="text-sm font-semibold" style="color: var(--color-ink-700)">Publikasi</h3>
                         <div
                             class="w-10 h-5 rounded-full transition-colors relative cursor-pointer"
-                            :style="form.is_published ? 'background-color: var(--color-blush-400)' : 'background-color: var(--color-ink-200)'"
+                            :style="form.is_published ? 'background-color: var(--color-sage-500)' : 'background-color: var(--color-ink-200)'"
                             @click="form.is_published = !form.is_published"
                         >
                             <div class="absolute top-0.5 w-4 h-4 rounded-full bg-white shadow transition-transform" :class="form.is_published ? 'translate-x-5' : 'translate-x-0.5'" />
                         </div>
                     </div>
                     <div class="flex gap-2">
-                        <button type="submit" :disabled="form.processing" class="flex-1 py-2.5 rounded-xl text-sm text-white transition-all disabled:opacity-50" style="background-color: var(--color-blush-500)">
+                        <button type="submit" :disabled="form.processing" class="flex-1 py-2.5 rounded-xl text-sm text-white transition-all disabled:opacity-50" style="background-color: var(--color-forest-800)">
                             {{ form.processing ? 'Menyimpan...' : (isEdit ? 'Perbarui' : 'Simpan') }}
                         </button>
                         <a href="/admin/writings" class="px-4 py-2.5 rounded-xl text-sm" style="background-color: var(--color-cream-100); color: var(--color-ink-600)">
@@ -117,7 +127,7 @@ function thumbnailUrl(path: string | null): string {
                     </div>
                 </div>
 
-                <!-- Collection -->
+                <!-- Settings -->
                 <div class="rounded-2xl p-4 space-y-3" style="background-color: white; border: 1px solid var(--color-cream-200)">
                     <h3 class="text-sm font-semibold" style="color: var(--color-ink-700)">Pengaturan</h3>
 
@@ -146,13 +156,19 @@ function thumbnailUrl(path: string | null): string {
                     </div>
 
                     <div>
-                        <label class="block text-xs mb-1" style="color: var(--color-ink-500)">Slug</label>
+                        <label class="block text-xs mb-1 flex items-center gap-1" style="color: var(--color-ink-500)">
+                            Slug
+                            <svg class="w-3 h-3" style="color: var(--color-ink-300)" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </label>
                         <input
-                            v-model="form.slug"
+                            :value="form.slug"
                             type="text"
-                            class="w-full px-3 py-2 rounded-lg text-xs font-mono outline-none"
-                            style="border: 1px solid var(--color-cream-300); background-color: var(--color-cream-50); color: var(--color-ink-600)"
-                            placeholder="otomatis dari judul"
+                            readonly
+                            class="w-full px-3 py-2 rounded-lg text-xs font-mono cursor-not-allowed"
+                            style="border: 1px solid var(--color-cream-200); background-color: var(--color-cream-100); color: var(--color-ink-400)"
+                            placeholder="otomatis dari judul..."
                         />
                     </div>
 
@@ -180,10 +196,10 @@ function thumbnailUrl(path: string | null): string {
                 <!-- Thumbnail -->
                 <div class="rounded-2xl p-4" style="background-color: white; border: 1px solid var(--color-cream-200)">
                     <h3 class="text-sm font-semibold mb-3" style="color: var(--color-ink-700)">Thumbnail</h3>
-                    <div v-if="isEdit && writing?.thumbnail && !form.thumbnail" class="mb-3">
-                        <img :src="thumbnailUrl(writing.thumbnail)" alt="thumbnail" class="w-full h-32 object-cover rounded-lg" />
-                    </div>
-                    <input type="file" accept="image/*" class="text-xs w-full" style="color: var(--color-ink-600)" @change="onFileChange" />
+                    <ImageUpload
+                        v-model="form.thumbnail"
+                        :current-image="writing?.thumbnail ?? null"
+                    />
                     <p v-if="form.errors.thumbnail" class="text-xs mt-1" style="color: #dc2626">{{ form.errors.thumbnail }}</p>
                 </div>
             </div>

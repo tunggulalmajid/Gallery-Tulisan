@@ -17,7 +17,7 @@ class WritingController extends Controller
     {
         $writings = Writing::with('collection')
             ->orderByDesc('created_at')
-            ->paginate(15);
+            ->paginate(9);
 
         return Inertia::render('Admin/Writings/Index', [
             'writings' => $writings,

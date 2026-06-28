@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Guest;
 use App\Http\Controllers\Controller;
 use App\Models\AuthorProfile;
 use App\Models\Collection;
+use App\Models\HeroSection;
 use App\Models\Writing;
 use Inertia\Inertia;
 use Inertia\Response;
@@ -27,11 +28,13 @@ class HomeController extends Controller
             ->get();
 
         $author = AuthorProfile::first();
+        $hero   = HeroSection::where('is_active', true)->first();
 
         return Inertia::render('Guest/Home', [
             'latestWritings'    => $latestWritings,
             'latestCollections' => $latestCollections,
             'author'            => $author,
+            'hero'              => $hero,
         ]);
     }
 }

@@ -2,165 +2,203 @@
 @source "../js";
 
 @theme {
-    /* ── Palette Feminim – Rose Dusty & Mauve ── */
-    --color-blush-50:  #fdf6f7;
-    --color-blush-100: #faeaed;
-    --color-blush-200: #f4d0d7;
-    --color-blush-300: #e9aab5;
-    --color-blush-400: #db7f92;
-    --color-blush-500: #c95a72;
-    --color-blush-600: #b0405a;
-    --color-blush-700: #933147;
-    --color-blush-800: #7a2a3e;
-    --color-blush-900: #672638;
+    /* ── Palette Fresh Natural – Light Sage, Soft Green, Warm Cream ── */
+    --color-sage-50:   #f2f8f2;
+    --color-sage-100:  #e3f2e3;
+    --color-sage-200:  #c7e5c7;
+    --color-sage-300:  #a0d0a0;
+    --color-sage-400:  #72b872;
+    --color-sage-500:  #52a052;
+    --color-sage-600:  #3d853d;
+    --color-sage-700:  #2f6a2f;
+    --color-sage-800:  #275527;
+    --color-sage-900:  #1e4020;
 
-    --color-mauve-50:  #f8f5f9;
-    --color-mauve-100: #f0eaf4;
-    --color-mauve-200: #e1d5ea;
-    --color-mauve-300: #c9b5d7;
-    --color-mauve-400: #ab8fbf;
-    --color-mauve-500: #8f6ea6;
-    --color-mauve-600: #77568d;
-    --color-mauve-700: #634574;
-    --color-mauve-800: #533a61;
-    --color-mauve-900: #463252;
+    --color-forest-50:  #f0f7f0;
+    --color-forest-100: #dceddc;
+    --color-forest-200: #b8dab8;
+    --color-forest-300: #8cc18c;
+    --color-forest-400: #5ea45e;
+    --color-forest-500: #3d873d;
+    --color-forest-600: #2d6e2d;
+    --color-forest-700: #245824;
+    --color-forest-800: #1c471c;
+    --color-forest-900: #123012;
 
-    --color-rose-mist-50:  #fef7f5;
-    --color-rose-mist-100: #fdeee9;
-    --color-rose-mist-200: #faddd3;
-    --color-rose-mist-300: #f5c0ad;
-    --color-rose-mist-400: #ed9a7f;
-    --color-rose-mist-500: #e27455;
-    --color-rose-mist-600: #cd5538;
-    --color-rose-mist-700: #ab412a;
-    --color-rose-mist-800: #8e3725;
-    --color-rose-mist-900: #763123;
+    --color-mint-50:  #f0faf5;
+    --color-mint-100: #dcf5e8;
+    --color-mint-200: #b8ebd1;
+    --color-mint-300: #8adab5;
+    --color-mint-400: #56c494;
+    --color-mint-500: #34ab79;
+    --color-mint-600: #268c62;
+    --color-mint-700: #1f7050;
+    --color-mint-800: #1a5940;
+    --color-mint-900: #154833;
 
-    --color-cream-50:  #fdfcfa;
-    --color-cream-100: #faf7f2;
-    --color-cream-200: #f4ede2;
-    --color-cream-300: #ebdecb;
-    --color-cream-400: #dfc9ad;
-    --color-cream-500: #d0b08c;
-    --color-cream-600: #bc9568;
-    --color-cream-700: #9d7a51;
-    --color-cream-800: #826444;
-    --color-cream-900: #6c5239;
+    --color-cream-50:  #fdfcf8;
+    --color-cream-100: #faf8f0;
+    --color-cream-200: #f3eedc;
+    --color-cream-300: #e9e0c4;
+    --color-cream-400: #d9cc9e;
+    --color-cream-500: #c4b074;
+    --color-cream-600: #a8924e;
+    --color-cream-700: #8a773d;
+    --color-cream-800: #716034;
+    --color-cream-900: #5e4f2c;
 
-    --color-ink-50:  #f5f4f6;
-    --color-ink-100: #eceaf0;
-    --color-ink-200: #d8d4e1;
-    --color-ink-300: #bab3cc;
-    --color-ink-400: #9688b3;
-    --color-ink-500: #786299;
-    --color-ink-600: #634e81;
-    --color-ink-700: #533f6c;
-    --color-ink-800: #46365b;
-    --color-ink-900: #3c2f4e;
+    --color-stone-50:  #f8f7f5;
+    --color-stone-100: #f0ede6;
+    --color-stone-200: #e2dcce;
+    --color-stone-300: #cdc5b0;
+    --color-stone-400: #b4a98e;
+    --color-stone-500: #9a8d70;
+    --color-stone-600: #80745a;
+    --color-stone-700: #695e48;
+    --color-stone-800: #574e3c;
+    --color-stone-900: #484033;
+
+    --color-ink-50:  #f5f5f2;
+    --color-ink-100: #eaeae4;
+    --color-ink-200: #d5d4cb;
+    --color-ink-300: #b8b7ab;
+    --color-ink-400: #98958a;
+    --color-ink-500: #7d7a6e;
+    --color-ink-600: #676458;
+    --color-ink-700: #555248;
+    --color-ink-800: #47443c;
+    --color-ink-900: #2a2820;
 
     --font-serif: 'Lora', 'Georgia', serif;
-    --font-sans: 'Inter', system-ui, sans-serif;
+    --font-sans:  'Inter', system-ui, sans-serif;
 }
 
 /* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
 body {
     font-family: var(--font-sans);
     background-color: var(--color-cream-50);
     color: var(--color-ink-900);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-serif);
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-serif); }
+
+/* ── Animations ── */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+@keyframes slideRight {
+    from { opacity: 0; transform: translateX(-16px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to   { opacity: 1; transform: scale(1); }
 }
 
-/* ── TipTap prose output ── */
+.animate-fade-up    { animation: fadeUp 0.5s ease forwards; }
+.animate-fade-in    { animation: fadeIn 0.4s ease forwards; }
+.animate-slide-right { animation: slideRight 0.4s ease forwards; }
+.animate-scale-in   { animation: scaleIn 0.35s ease forwards; }
+
+.animate-delay-100 { animation-delay: 0.1s; opacity: 0; }
+.animate-delay-200 { animation-delay: 0.2s; opacity: 0; }
+.animate-delay-300 { animation-delay: 0.3s; opacity: 0; }
+.animate-delay-400 { animation-delay: 0.4s; opacity: 0; }
+.animate-delay-500 { animation-delay: 0.5s; opacity: 0; }
+
+/* ── Global transitions ── */
+a, button, input, textarea, select {
+    transition: all 0.18s ease;
+}
+
+/* ── Focus ring ── */
+:focus-visible {
+    outline: 2px solid var(--color-sage-400);
+    outline-offset: 2px;
+    border-radius: 6px;
+}
+
+/* ── Card hover lift ── */
+.card-hover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+}
+
+/* ── Prose writing output ── */
 .prose-writing {
     font-family: var(--font-serif);
-    line-height: 1.9;
+    line-height: 2;
     color: var(--color-ink-800);
+    font-size: 1.05rem;
 }
-
-.prose-writing p {
-    margin-bottom: 1.25rem;
-}
-
-.prose-writing strong {
-    color: var(--color-ink-900);
-    font-weight: 600;
-}
-
-.prose-writing em {
-    color: var(--color-blush-700);
-}
-
-.prose-writing a {
-    color: var(--color-blush-600);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
-.prose-writing a:hover {
-    color: var(--color-blush-800);
-}
-
+.prose-writing p { margin-bottom: 1.4rem; }
+.prose-writing strong { color: var(--color-ink-900); font-weight: 600; }
+.prose-writing em { color: var(--color-sage-700); }
+.prose-writing a { color: var(--color-sage-600); text-decoration: underline; text-underline-offset: 3px; }
+.prose-writing a:hover { color: var(--color-forest-700); }
 .prose-writing blockquote {
-    border-left: 3px solid var(--color-blush-300);
+    border-left: 3px solid var(--color-sage-300);
     padding-left: 1.25rem;
-    margin: 1.5rem 0;
-    color: var(--color-ink-600);
+    margin: 1.75rem 0;
+    color: var(--color-ink-500);
     font-style: italic;
 }
-
+.prose-writing h2 { font-size: 1.4rem; font-weight: 600; color: var(--color-ink-900); margin: 2rem 0 0.75rem; }
+.prose-writing h3 { font-size: 1.2rem; font-weight: 600; color: var(--color-ink-800); margin: 1.5rem 0 0.5rem; }
+.prose-writing img { max-width: 100%; border-radius: 0.75rem; margin: 1.5rem auto; display: block; }
 .prose-writing .iframe-wrapper {
-    position: relative;
-    padding-bottom: 56.25%;
-    height: 0;
-    overflow: hidden;
-    margin: 1.5rem 0;
-    border-radius: 0.5rem;
+    position: relative; padding-bottom: 56.25%; height: 0;
+    overflow: hidden; margin: 2rem 0; border-radius: 0.75rem;
 }
-
 .prose-writing .iframe-wrapper iframe {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-}
-
-.prose-writing img {
-    max-width: 100%;
-    border-radius: 0.5rem;
-    margin: 1.25rem auto;
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
 }
 
 /* ── TipTap editor ── */
 .tiptap-editor .ProseMirror {
-    min-height: 320px;
-    outline: none;
-    font-family: var(--font-serif);
-    line-height: 1.9;
-    color: var(--color-ink-800);
-    padding: 1rem;
+    min-height: 360px; outline: none;
+    font-family: var(--font-serif); line-height: 2;
+    color: var(--color-ink-800); padding: 1.25rem; font-size: 1rem;
+}
+.tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
+    color: var(--color-ink-300);
+    content: attr(data-placeholder);
+    float: left; height: 0; pointer-events: none;
 }
 
-.tiptap-editor .ProseMirror p.is-editor-empty:first-child::before {
-    color: var(--color-ink-400);
-    content: attr(data-placeholder);
-    float: left;
-    height: 0;
-    pointer-events: none;
+/* ── Image upload zone ── */
+.upload-zone {
+    border: 2px dashed var(--color-sage-200);
+    background-color: var(--color-sage-50);
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+.upload-zone:hover, .upload-zone.dragover {
+    border-color: var(--color-sage-400);
+    background-color: var(--color-sage-100);
 }
 
 /* ── Scrollbar ── */
-::-webkit-scrollbar {
-    width: 6px;
-}
-::-webkit-scrollbar-track {
-    background: var(--color-cream-100);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--color-blush-300);
-    border-radius: 3px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--color-blush-400);
-}
+::-webkit-scrollbar { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--color-sage-200); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--color-sage-300); }
+
+/* ── Page transition ── */
+.page-enter-active, .page-leave-active { transition: opacity 0.25s ease; }
+.page-enter-from, .page-leave-to { opacity: 0; }

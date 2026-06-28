@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\AuthorProfile;
 use App\Models\Collection;
+use App\Models\HeroSection;
 use App\Models\User;
 use App\Models\Writing;
 use Illuminate\Database\Seeder;
@@ -33,7 +34,20 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // Sample collections
+        // Hero section
+        HeroSection::firstOrCreate(
+            ['id' => 1],
+            [
+                'heading'    => 'Setiap Kata adalah Jejak Rasa',
+                'subheading' => 'Karya pribadi Suci',
+                'body'       => 'Kumpulan puisi, pantun, dan cerita yang lahir dari ruang paling sunyi — tempat di mana kata-kata tumbuh menjadi perasaan.',
+                'cta_label'  => 'Jelajahi Karya',
+                'cta_url'    => '/koleksi',
+                'is_active'  => true,
+            ]
+        );
+
+        // Sample collection
         $collection1 = Collection::firstOrCreate(
             ['slug' => 'rindu-yang-tertinggal'],
             [
@@ -44,17 +58,7 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        $collection2 = Collection::firstOrCreate(
-            ['slug' => 'hujan-dan-cerita'],
-            [
-                'title'        => 'Hujan dan Cerita',
-                'description'  => 'Cerita pendek dan prosa tentang hujan, waktu, dan pertemuan yang tak terduga.',
-                'is_published' => true,
-                'sort_order'   => 2,
-            ]
-        );
-
-        // Sample writings for collection 1
+        // Sample writing
         Writing::firstOrCreate(
             ['slug' => 'surat-untuk-waktu'],
             [
@@ -66,49 +70,6 @@ class DatabaseSeeder extends Seeder
                 'is_published'  => true,
                 'sort_order'    => 1,
                 'written_at'    => '2024-01-15',
-            ]
-        );
-
-        Writing::firstOrCreate(
-            ['slug' => 'rumah-di-antara-kata'],
-            [
-                'collection_id' => $collection1->id,
-                'title'         => 'Rumah di Antara Kata',
-                'type'          => 'puisi',
-                'excerpt'       => 'Kubangun rumah dari kata-kata yang kau tinggalkan...',
-                'content'       => '<p>Kubangun rumah dari kata-kata yang kau tinggalkan<br>dindingnya dari janji-janji yang belum sempat terucap<br>atapnya dari mimpi yang kita rajut bersama</p><p>Di sini aku masih tinggal<br>menunggu kau pulang<br>ke rumah yang kita sebut rindu</p>',
-                'is_published'  => true,
-                'sort_order'    => 2,
-                'written_at'    => '2024-02-20',
-            ]
-        );
-
-        Writing::firstOrCreate(
-            ['slug' => 'pantun-musim-semi'],
-            [
-                'collection_id' => $collection1->id,
-                'title'         => 'Pantun Musim Semi',
-                'type'          => 'pantun',
-                'excerpt'       => 'Bunga mekar di musim semi, indah warnanya menyapa pagi...',
-                'content'       => '<p>Bunga mekar di musim semi,<br>indah warnanya menyapa pagi.<br>Hatiku mekar bertemu kembali,<br>senyummu hangatkan hari ini.</p><p>Pergi ke pasar membeli rempah,<br>pulang membawa harum bunga.<br>Cinta ini tak pernah lempah,<br>makin dalam makin terjaga.</p>',
-                'is_published'  => true,
-                'sort_order'    => 3,
-                'written_at'    => '2024-03-10',
-            ]
-        );
-
-        // Sample writings for collection 2
-        Writing::firstOrCreate(
-            ['slug' => 'ketika-hujan-bercerita'],
-            [
-                'collection_id' => $collection2->id,
-                'title'         => 'Ketika Hujan Bercerita',
-                'type'          => 'cerita',
-                'excerpt'       => 'Ada yang berbeda dari hujan malam ini. Bukan rintiknya, bukan suaranya...',
-                'content'       => '<p>Ada yang berbeda dari hujan malam ini. Bukan rintiknya, bukan suaranya. Tapi cara dia jatuh, seolah tahu bahwa ada seseorang di balik jendela yang sedang menunggunya.</p><p>Aku duduk di kursi rotan tua, secangkir teh di tangan, dan mata yang tak bisa berpaling dari tetes-tetes itu. Mungkin hujan memang selalu punya cerita. Dan malam ini, giliran aku yang mendengarkannya.</p><p>Dia berbisik tentang waktu. Tentang semua orang yang pernah berdiri di tempat yang sama, mungkin dengan perasaan yang sama, menatap langit yang sama. Dan entah kenapa, itu membuatku merasa tidak terlalu sendirian.</p>',
-                'is_published'  => true,
-                'sort_order'    => 1,
-                'written_at'    => '2024-04-05',
             ]
         );
     }

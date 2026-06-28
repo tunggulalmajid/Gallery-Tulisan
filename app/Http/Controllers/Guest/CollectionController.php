@@ -21,7 +21,8 @@ class CollectionController extends Controller
                 ->orWhere('description', 'like', "%{$search}%"))
             ->orderBy('sort_order')
             ->orderByDesc('created_at')
-            ->get();
+            ->paginate(9)
+            ->withQueryString();
 
         return Inertia::render('Guest/Collections', [
             'collections' => $collections,
@@ -39,7 +40,8 @@ class CollectionController extends Controller
             ->where('collection_id', $collection->id)
             ->orderBy('sort_order')
             ->orderByDesc('created_at')
-            ->get(['id', 'title', 'slug', 'type', 'excerpt', 'thumbnail', 'written_at', 'created_at']);
+            ->paginate(9, ['id', 'title', 'slug', 'type', 'excerpt', 'thumbnail', 'written_at', 'created_at'])
+            ->withQueryString();
 
         return Inertia::render('Guest/CollectionDetail', [
             'collection' => $collection,

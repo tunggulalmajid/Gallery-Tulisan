@@ -16,6 +16,7 @@ export interface Collection {
     is_published: boolean;
     sort_order: number;
     writings_count?: number;
+    published_writings_count?: number;
     writings?: Writing[];
     published_writings?: Writing[];
     created_at: string;
@@ -50,6 +51,19 @@ export interface AuthorProfile {
     instagram: string | null;
     twitter: string | null;
     email: string | null;
+    created_at: string;
+    updated_at: string;
+}
+
+export interface HeroSection {
+    id: number;
+    heading: string;
+    subheading: string | null;
+    body: string | null;
+    cta_label: string | null;
+    cta_url: string | null;
+    image: string | null;
+    is_active: boolean;
     created_at: string;
     updated_at: string;
 }

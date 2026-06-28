@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthorProfileController;
 use App\Http\Controllers\Admin\CollectionController as AdminCollectionController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\HeroSectionController;
 use App\Http\Controllers\Admin\WritingController;
 use App\Http\Controllers\Guest\AuthorController;
 use App\Http\Controllers\Guest\CollectionController as GuestCollectionController;
@@ -23,13 +24,15 @@ Route::prefix('koleksi')->name('collections.')->group(function () {
 Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
 
+    // Hero Section
+    Route::get('/hero', [HeroSectionController::class, 'edit'])->name('hero.edit');
+    Route::post('/hero', [HeroSectionController::class, 'update'])->name('hero.update');
+
     // Collections
-    Route::resource('collections', AdminCollectionController::class)
-        ->except(['show']);
+    Route::resource('collections', AdminCollectionController::class)->except(['show']);
 
     // Writings
-    Route::resource('writings', WritingController::class)
-        ->except(['show']);
+    Route::resource('writings', WritingController::class)->except(['show']);
 
     // Image upload for TipTap
     Route::post('/writings/upload-image', [WritingController::class, 'uploadImage'])
