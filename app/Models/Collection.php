@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -48,11 +49,13 @@ class Collection extends Model
         });
     }
 
+    /** @return HasMany<Writing, $this> */
     public function writings(): HasMany
     {
         return $this->hasMany(Writing::class)->orderBy('sort_order');
     }
 
+    /** @return HasMany<Writing, $this> */
     public function publishedWritings(): HasMany
     {
         return $this->hasMany(Writing::class)
@@ -60,7 +63,10 @@ class Collection extends Model
             ->orderBy('sort_order');
     }
 
-    public function scopePublished($query)
+    /** @param Builder<self> $query
+     * @return Builder<self>
+     */
+    public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true);
     }

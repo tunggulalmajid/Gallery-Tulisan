@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -58,16 +59,21 @@ class Writing extends Model
         });
     }
 
+    /** @return BelongsTo<Collection, $this> */
     public function collection(): BelongsTo
     {
         return $this->belongsTo(Collection::class);
     }
 
-    public function scopePublished($query)
+    /** @param Builder<self> $query
+     * @return Builder<self>
+     */
+    public function scopePublished(Builder $query): Builder
     {
         return $query->where('is_published', true);
     }
 
+    /** @return array<int, string> */
     public static function types(): array
     {
         return ['puisi', 'pantun', 'cerita', 'prosa', 'sajak', 'lainnya'];

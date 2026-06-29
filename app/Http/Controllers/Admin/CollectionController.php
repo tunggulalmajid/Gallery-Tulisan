@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Collection;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -29,7 +30,7 @@ class CollectionController extends Controller
         return Inertia::render('Admin/Collections/Form');
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -62,7 +63,7 @@ class CollectionController extends Controller
         ]);
     }
 
-    public function update(Request $request, Collection $collection)
+    public function update(Request $request, Collection $collection): RedirectResponse
     {
         $validated = $request->validate([
             'title' => 'required|string|max:255',
@@ -91,7 +92,7 @@ class CollectionController extends Controller
             ->with('success', 'Koleksi berhasil diperbarui.');
     }
 
-    public function destroy(Collection $collection)
+    public function destroy(Collection $collection): RedirectResponse
     {
         if ($collection->thumbnail) {
             Storage::disk('public')->delete($collection->thumbnail);

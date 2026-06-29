@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Collection;
 use App\Models\Writing;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -34,7 +36,7 @@ class WritingController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
         $validated = $request->validate([
             'collection_id' => 'required|exists:collections,id',
@@ -75,7 +77,7 @@ class WritingController extends Controller
         ]);
     }
 
-    public function update(Request $request, Writing $writing)
+    public function update(Request $request, Writing $writing): RedirectResponse
     {
         $validated = $request->validate([
             'collection_id' => 'required|exists:collections,id',
@@ -108,7 +110,7 @@ class WritingController extends Controller
             ->with('success', 'Tulisan berhasil diperbarui.');
     }
 
-    public function destroy(Writing $writing)
+    public function destroy(Writing $writing): RedirectResponse
     {
         if ($writing->thumbnail) {
             Storage::disk('public')->delete($writing->thumbnail);
@@ -120,13 +122,13 @@ class WritingController extends Controller
             ->with('success', 'Tulisan berhasil dihapus.');
     }
 
-    public function uploadImage(Request $request)
+    public function uploadImage(Request $request): JsonResponse
     {
         $request->validate([
             'image' => 'required|image|max:4096',
         ]);
 
-        $path = $request->file('image')->store('writings/images', 'public');
+        $path = (string) $request->file('image')->store('writings/images', 'public');
 
         return response()->json([
             'url' => Storage::disk('public')->url($path),

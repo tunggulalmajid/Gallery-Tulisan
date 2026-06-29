@@ -11,3 +11,6 @@ parameters:
         - routes/
 
     level: 7
+
+    ignoreErrors:
+        - '#Class App\\Models\\(AuthorProfile|Collection|HeroSection|Writing) uses generic trait Illuminate\\Database\\Eloquent\\Factories\\HasFactory but does not specify its types#'
