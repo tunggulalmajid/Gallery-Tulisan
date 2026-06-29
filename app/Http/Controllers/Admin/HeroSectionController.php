@@ -23,13 +23,13 @@ class HeroSectionController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'heading'    => 'required|string|max:255',
+            'heading' => 'required|string|max:255',
             'subheading' => 'nullable|string|max:255',
-            'body'       => 'nullable|string',
-            'cta_label'  => 'nullable|string|max:100',
-            'cta_url'    => 'nullable|string|max:255',
-            'image'      => 'nullable|image|max:4096',
-            'is_active'  => 'boolean',
+            'body' => 'nullable|string',
+            'cta_label' => 'nullable|string|max:100',
+            'cta_url' => 'nullable|string|max:255',
+            'image' => 'nullable|image|max:4096',
+            'is_active' => 'boolean',
         ]);
 
         $hero = HeroSection::first();

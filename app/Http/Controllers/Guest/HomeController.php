@@ -28,13 +28,13 @@ class HomeController extends Controller
             ->get();
 
         $author = AuthorProfile::first();
-        $hero   = HeroSection::where('is_active', true)->first();
+        $hero = HeroSection::where('is_active', true)->first();
 
         return Inertia::render('Guest/Home', [
-            'latestWritings'    => $latestWritings,
+            'latestWritings' => $latestWritings,
             'latestCollections' => $latestCollections,
-            'author'            => $author,
-            'hero'              => $hero,
+            'author' => $author,
+            'hero' => $hero,
         ]);
     }
 }

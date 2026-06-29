@@ -43,4 +43,4 @@ Route::prefix('admin')->name('admin.')->middleware(['auth'])->group(function () 
     Route::post('/profile', [AuthorProfileController::class, 'update'])->name('profile.update');
 });
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

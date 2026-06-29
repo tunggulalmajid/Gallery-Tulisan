@@ -26,7 +26,7 @@ class CollectionController extends Controller
 
         return Inertia::render('Guest/Collections', [
             'collections' => $collections,
-            'search'      => $search,
+            'search' => $search,
         ]);
     }
 
@@ -45,7 +45,7 @@ class CollectionController extends Controller
 
         return Inertia::render('Guest/CollectionDetail', [
             'collection' => $collection,
-            'writings'   => $writings,
+            'writings' => $writings,
         ]);
     }
 
@@ -62,7 +62,7 @@ class CollectionController extends Controller
 
         return Inertia::render('Guest/WritingDetail', [
             'collection' => $collection,
-            'writing'    => $writing,
+            'writing' => $writing,
         ]);
     }
 }

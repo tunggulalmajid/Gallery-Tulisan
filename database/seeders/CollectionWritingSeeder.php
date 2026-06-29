@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Collection;
 use App\Models\Writing;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class CollectionWritingSeeder extends Seeder
 {
@@ -89,28 +90,28 @@ class CollectionWritingSeeder extends Seeder
             $collection = Collection::firstOrCreate(
                 ['slug' => $collData['slug']],
                 [
-                    'title'        => $collData['title'],
-                    'description'  => $collData['description'],
+                    'title' => $collData['title'],
+                    'description' => $collData['description'],
                     'is_published' => true,
-                    'sort_order'   => $index + 3,
+                    'sort_order' => $index + 3,
                 ]
             );
 
             $template = $templates[$index % count($templates)];
 
             foreach (range(0, 4) as $i) {
-                $slug = \Illuminate\Support\Str::slug($template['titles'][$i]) . '-' . ($index + 1);
+                $slug = Str::slug($template['titles'][$i]).'-'.($index + 1);
                 Writing::firstOrCreate(
                     ['slug' => $slug],
                     [
                         'collection_id' => $collection->id,
-                        'title'         => $template['titles'][$i],
-                        'type'          => $template['type'],
-                        'excerpt'       => $template['excerpts'][$i],
-                        'content'       => $template['contents'][$i],
-                        'is_published'  => true,
-                        'sort_order'    => $i + 1,
-                        'written_at'    => now()->subDays(rand(30, 730))->toDateString(),
+                        'title' => $template['titles'][$i],
+                        'type' => $template['type'],
+                        'excerpt' => $template['excerpts'][$i],
+                        'content' => $template['contents'][$i],
+                        'is_published' => true,
+                        'sort_order' => $i + 1,
+                        'written_at' => now()->subDays(rand(30, 730))->toDateString(),
                     ]
                 );
             }

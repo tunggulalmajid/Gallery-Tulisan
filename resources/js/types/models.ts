@@ -40,7 +40,8 @@ export interface Writing {
     updated_at: string;
 }
 
-export type WritingType = 'puisi' | 'pantun' | 'cerita' | 'prosa' | 'sajak' | 'lainnya';
+export type WritingType =
+    'puisi' | 'pantun' | 'cerita' | 'prosa' | 'sajak' | 'lainnya';
 
 export interface AuthorProfile {
     id: number;

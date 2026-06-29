@@ -13,10 +13,10 @@ class DashboardController extends Controller
     public function index(): Response
     {
         $stats = [
-            'total_collections'   => Collection::count(),
-            'total_writings'      => Writing::count(),
-            'published_writings'  => Writing::where('is_published', true)->count(),
-            'draft_writings'      => Writing::where('is_published', false)->count(),
+            'total_collections' => Collection::count(),
+            'total_writings' => Writing::count(),
+            'published_writings' => Writing::where('is_published', true)->count(),
+            'draft_writings' => Writing::where('is_published', false)->count(),
         ];
 
         $recentWritings = Writing::with('collection')
@@ -30,9 +30,9 @@ class DashboardController extends Controller
             ->get();
 
         return Inertia::render('Admin/Dashboard', [
-            'stats'              => $stats,
-            'recentWritings'     => $recentWritings,
-            'recentCollections'  => $recentCollections,
+            'stats' => $stats,
+            'recentWritings' => $recentWritings,
+            'recentCollections' => $recentCollections,
         ]);
     }
 }

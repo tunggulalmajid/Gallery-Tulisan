@@ -23,13 +23,13 @@ class AuthorProfileController extends Controller
     public function update(Request $request)
     {
         $validated = $request->validate([
-            'name'      => 'required|string|max:255',
-            'photo'     => 'nullable|image|max:2048',
-            'bio'       => 'nullable|string',
-            'tagline'   => 'nullable|string|max:255',
+            'name' => 'required|string|max:255',
+            'photo' => 'nullable|image|max:2048',
+            'bio' => 'nullable|string',
+            'tagline' => 'nullable|string|max:255',
             'instagram' => 'nullable|string|max:100',
-            'twitter'   => 'nullable|string|max:100',
-            'email'     => 'nullable|email|max:255',
+            'twitter' => 'nullable|string|max:100',
+            'email' => 'nullable|email|max:255',
         ]);
 
         $profile = AuthorProfile::first();

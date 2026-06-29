@@ -30,7 +30,7 @@ class WritingController extends Controller
 
         return Inertia::render('Admin/Writings/Form', [
             'collections' => $collections,
-            'types'       => Writing::types(),
+            'types' => Writing::types(),
         ]);
     }
 
@@ -38,15 +38,15 @@ class WritingController extends Controller
     {
         $validated = $request->validate([
             'collection_id' => 'required|exists:collections,id',
-            'title'         => 'required|string|max:255',
-            'slug'          => 'nullable|string|max:255|unique:writings,slug',
-            'type'          => 'required|string|in:' . implode(',', Writing::types()),
-            'excerpt'       => 'nullable|string|max:500',
-            'content'       => 'required|string',
-            'thumbnail'     => 'nullable|image|max:2048',
-            'is_published'  => 'boolean',
-            'sort_order'    => 'integer|min:0',
-            'written_at'    => 'nullable|date',
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:writings,slug',
+            'type' => 'required|string|in:'.implode(',', Writing::types()),
+            'excerpt' => 'nullable|string|max:500',
+            'content' => 'required|string',
+            'thumbnail' => 'nullable|image|max:2048',
+            'is_published' => 'boolean',
+            'sort_order' => 'integer|min:0',
+            'written_at' => 'nullable|date',
         ]);
 
         $validated['slug'] = $validated['slug']
@@ -69,9 +69,9 @@ class WritingController extends Controller
         $collections = Collection::orderBy('title')->get(['id', 'title']);
 
         return Inertia::render('Admin/Writings/Form', [
-            'writing'     => $writing,
+            'writing' => $writing,
             'collections' => $collections,
-            'types'       => Writing::types(),
+            'types' => Writing::types(),
         ]);
     }
 
@@ -79,15 +79,15 @@ class WritingController extends Controller
     {
         $validated = $request->validate([
             'collection_id' => 'required|exists:collections,id',
-            'title'         => 'required|string|max:255',
-            'slug'          => 'nullable|string|max:255|unique:writings,slug,' . $writing->id,
-            'type'          => 'required|string|in:' . implode(',', Writing::types()),
-            'excerpt'       => 'nullable|string|max:500',
-            'content'       => 'required|string',
-            'thumbnail'     => 'nullable|image|max:2048',
-            'is_published'  => 'boolean',
-            'sort_order'    => 'integer|min:0',
-            'written_at'    => 'nullable|date',
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:writings,slug,'.$writing->id,
+            'type' => 'required|string|in:'.implode(',', Writing::types()),
+            'excerpt' => 'nullable|string|max:500',
+            'content' => 'required|string',
+            'thumbnail' => 'nullable|image|max:2048',
+            'is_published' => 'boolean',
+            'sort_order' => 'integer|min:0',
+            'written_at' => 'nullable|date',
         ]);
 
         $validated['slug'] = $validated['slug']

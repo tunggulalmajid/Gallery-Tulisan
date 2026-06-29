@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Collection;
-use App\Models\Writing;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -33,12 +32,12 @@ class CollectionController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'title'        => 'required|string|max:255',
-            'slug'         => 'nullable|string|max:255|unique:collections,slug',
-            'description'  => 'nullable|string',
-            'thumbnail'    => 'nullable|image|max:2048',
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:collections,slug',
+            'description' => 'nullable|string',
+            'thumbnail' => 'nullable|image|max:2048',
             'is_published' => 'boolean',
-            'sort_order'   => 'integer|min:0',
+            'sort_order' => 'integer|min:0',
         ]);
 
         $validated['slug'] = $validated['slug']
@@ -66,12 +65,12 @@ class CollectionController extends Controller
     public function update(Request $request, Collection $collection)
     {
         $validated = $request->validate([
-            'title'        => 'required|string|max:255',
-            'slug'         => 'nullable|string|max:255|unique:collections,slug,' . $collection->id,
-            'description'  => 'nullable|string',
-            'thumbnail'    => 'nullable|image|max:2048',
+            'title' => 'required|string|max:255',
+            'slug' => 'nullable|string|max:255|unique:collections,slug,'.$collection->id,
+            'description' => 'nullable|string',
+            'thumbnail' => 'nullable|image|max:2048',
             'is_published' => 'boolean',
-            'sort_order'   => 'integer|min:0',
+            'sort_order' => 'integer|min:0',
         ]);
 
         $validated['slug'] = $validated['slug']

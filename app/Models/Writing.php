@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
 
 /**
@@ -18,7 +19,7 @@ use Illuminate\Support\Str;
  * @property string|null $thumbnail
  * @property bool $is_published
  * @property int $sort_order
- * @property \Illuminate\Support\Carbon|null $written_at
+ * @property Carbon|null $written_at
  */
 class Writing extends Model
 {
@@ -41,8 +42,8 @@ class Writing extends Model
     {
         return [
             'is_published' => 'boolean',
-            'sort_order'   => 'integer',
-            'written_at'   => 'date',
+            'sort_order' => 'integer',
+            'written_at' => 'date',
         ];
     }
 

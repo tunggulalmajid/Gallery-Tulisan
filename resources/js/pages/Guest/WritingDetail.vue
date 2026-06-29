@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import PublicLayout from '@/Layouts/PublicLayout.vue';
 import { Link } from '@inertiajs/vue3';
+import PublicLayout from '@/Layouts/PublicLayout.vue';
 import type { Collection, Writing } from '@/types';
 
 defineProps<{
@@ -9,12 +9,13 @@ defineProps<{
 }>();
 
 const typeColors: Record<string, string> = {
-    puisi:   'background-color: var(--color-sage-50); color: var(--color-sage-700)',
-    pantun:  'background-color: #f0fdf4; color: #15803d',
-    cerita:  'background-color: var(--color-cream-100); color: var(--color-ink-600)',
-    prosa:   'background-color: #fafaf5; color: #713f12',
-    sajak:   'background-color: #fdf4ff; color: #86198f',
-    lainnya: 'background-color: var(--color-stone-100); color: var(--color-stone-600)',
+    puisi: 'background-color: var(--color-sage-50); color: var(--color-sage-700)',
+    pantun: 'background-color: #f0fdf4; color: #15803d',
+    cerita: 'background-color: var(--color-cream-100); color: var(--color-ink-600)',
+    prosa: 'background-color: #fafaf5; color: #713f12',
+    sajak: 'background-color: #fdf4ff; color: #86198f',
+    lainnya:
+        'background-color: var(--color-stone-100); color: var(--color-stone-600)',
 };
 
 function thumbnailUrl(path: string | null): string {
@@ -22,59 +23,142 @@ function thumbnailUrl(path: string | null): string {
 }
 
 function formatDate(date: string | null): string {
-    if (!date) return '';
-    return new Date(date).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    if (!date) {
+        return '';
+    }
+
+    return new Date(date).toLocaleDateString('id-ID', {
+        day: 'numeric',
+        month: 'long',
+        year: 'numeric',
+    });
 }
 </script>
 
 <template>
     <PublicLayout>
-        <article class="max-w-2xl mx-auto px-5 sm:px-8 py-14 sm:py-20 animate-fade-up">
+        <article
+            class="animate-fade-up mx-auto max-w-2xl px-5 py-14 sm:px-8 sm:py-20"
+        >
             <!-- Breadcrumb -->
-            <nav class="flex items-center flex-wrap gap-1.5 text-xs mb-10" style="color: var(--color-ink-400)">
-                <Link href="/koleksi" class="hover:text-[--color-sage-600] transition-colors">Koleksi</Link>
-                <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            <nav
+                class="mb-10 flex flex-wrap items-center gap-1.5 text-xs"
+                style="color: var(--color-ink-400)"
+            >
+                <Link
+                    href="/koleksi"
+                    class="transition-colors hover:text-[--color-sage-600]"
+                    >Koleksi</Link
+                >
+                <svg
+                    class="h-3 w-3 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                    />
                 </svg>
-                <Link :href="`/koleksi/${collection.slug}`" class="hover:text-[--color-sage-600] transition-colors truncate max-w-[120px]">
+                <Link
+                    :href="`/koleksi/${collection.slug}`"
+                    class="max-w-[120px] truncate transition-colors hover:text-[--color-sage-600]"
+                >
                     {{ collection.title }}
                 </Link>
-                <svg class="w-3 h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                <svg
+                    class="h-3 w-3 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 5l7 7-7 7"
+                    />
                 </svg>
-                <span class="truncate max-w-[150px]" style="color: var(--color-ink-600)">{{ writing.title }}</span>
+                <span
+                    class="max-w-[150px] truncate"
+                    style="color: var(--color-ink-600)"
+                    >{{ writing.title }}</span
+                >
             </nav>
 
             <!-- Hero thumbnail -->
-            <div v-if="writing.thumbnail" class="w-full aspect-[16/9] rounded-2xl overflow-hidden mb-10 shadow-sm">
-                <img :src="thumbnailUrl(writing.thumbnail)" :alt="writing.title" class="w-full h-full object-cover"/>
+            <div
+                v-if="writing.thumbnail"
+                class="mb-10 aspect-[16/9] w-full overflow-hidden rounded-2xl shadow-sm"
+            >
+                <img
+                    :src="thumbnailUrl(writing.thumbnail)"
+                    :alt="writing.title"
+                    class="h-full w-full object-cover"
+                />
             </div>
 
             <!-- Header -->
             <header class="mb-10">
-                <div class="flex items-center flex-wrap gap-2.5 mb-5">
-                    <span class="text-xs px-2.5 py-1 rounded-full font-medium capitalize" :style="typeColors[writing.type] ?? typeColors.lainnya">
+                <div class="mb-5 flex flex-wrap items-center gap-2.5">
+                    <span
+                        class="rounded-full px-2.5 py-1 text-xs font-medium capitalize"
+                        :style="typeColors[writing.type] ?? typeColors.lainnya"
+                    >
                         {{ writing.type }}
                     </span>
-                    <span v-if="writing.written_at" class="text-xs" style="color: var(--color-stone-400)">
+                    <span
+                        v-if="writing.written_at"
+                        class="text-xs"
+                        style="color: var(--color-stone-400)"
+                    >
                         {{ formatDate(writing.written_at) }}
                     </span>
                 </div>
-                <h1 class="font-semibold mb-4 leading-tight" style="font-family: var(--font-serif); color: var(--color-ink-900); font-size: clamp(1.6rem, 5vw, 2.4rem)">
+                <h1
+                    class="mb-4 leading-tight font-semibold"
+                    style="
+                        font-family: var(--font-serif);
+                        color: var(--color-ink-900);
+                        font-size: clamp(1.6rem, 5vw, 2.4rem);
+                    "
+                >
                     {{ writing.title }}
                 </h1>
-                <p v-if="writing.excerpt" class="text-base italic" style="color: var(--color-ink-500); font-family: var(--font-serif); line-height: 1.75">
+                <p
+                    v-if="writing.excerpt"
+                    class="text-base italic"
+                    style="
+                        color: var(--color-ink-500);
+                        font-family: var(--font-serif);
+                        line-height: 1.75;
+                    "
+                >
                     {{ writing.excerpt }}
                 </p>
             </header>
 
             <!-- Divider -->
-            <div class="flex items-center gap-3 mb-10">
-                <div class="flex-1 h-px" style="background-color: var(--color-cream-200)"/>
-                <svg class="w-3.5 h-3.5 flex-shrink-0" style="color: var(--color-sage-300)" fill="currentColor" viewBox="0 0 20 20">
-                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+            <div class="mb-10 flex items-center gap-3">
+                <div
+                    class="h-px flex-1"
+                    style="background-color: var(--color-cream-200)"
+                />
+                <svg
+                    class="h-3.5 w-3.5 flex-shrink-0"
+                    style="color: var(--color-sage-300)"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                >
+                    <path d="M10 12a2 2 0 100-4 2 2 0 000 4z" />
                 </svg>
-                <div class="flex-1 h-px" style="background-color: var(--color-cream-200)"/>
+                <div
+                    class="h-px flex-1"
+                    style="background-color: var(--color-cream-200)"
+                />
             </div>
 
             <!-- Content from TipTap -->
@@ -84,10 +168,18 @@ function formatDate(date: string | null): string {
             />
 
             <!-- End ornament -->
-            <div class="flex items-center gap-3 mt-14 mb-10">
-                <div class="flex-1 h-px" style="background-color: var(--color-cream-200)"/>
-                <span style="color: var(--color-sage-400); font-size: 1rem">✦</span>
-                <div class="flex-1 h-px" style="background-color: var(--color-cream-200)"/>
+            <div class="mt-14 mb-10 flex items-center gap-3">
+                <div
+                    class="h-px flex-1"
+                    style="background-color: var(--color-cream-200)"
+                />
+                <span style="color: var(--color-sage-400); font-size: 1rem"
+                    >✦</span
+                >
+                <div
+                    class="h-px flex-1"
+                    style="background-color: var(--color-cream-200)"
+                />
             </div>
 
             <!-- Back link -->
@@ -96,8 +188,18 @@ function formatDate(date: string | null): string {
                 class="inline-flex items-center gap-2 text-sm font-medium transition-all duration-200 hover:gap-3"
                 style="color: var(--color-sage-600)"
             >
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16l-4-4m0 0l4-4m-4 4h18"/>
+                <svg
+                    class="h-4 w-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                >
+                    <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M7 16l-4-4m0 0l4-4m-4 4h18"
+                    />
                 </svg>
                 Kembali ke {{ collection.title }}
             </Link>
@@ -126,9 +228,15 @@ function formatDate(date: string | null): string {
     margin-bottom: 0.6em;
     line-height: 1.25;
 }
-.tiptap-content :deep(h1) { font-size: 1.6rem; }
-.tiptap-content :deep(h2) { font-size: 1.3rem; }
-.tiptap-content :deep(h3) { font-size: 1.1rem; }
+.tiptap-content :deep(h1) {
+    font-size: 1.6rem;
+}
+.tiptap-content :deep(h2) {
+    font-size: 1.3rem;
+}
+.tiptap-content :deep(h3) {
+    font-size: 1.1rem;
+}
 .tiptap-content :deep(blockquote) {
     border-left: 3px solid var(--color-sage-300);
     padding-left: 1.25rem;
@@ -158,9 +266,16 @@ function formatDate(date: string | null): string {
     padding-left: 1.5rem;
     margin-bottom: 1.2em;
 }
-.tiptap-content :deep(li) { margin-bottom: 0.4em; }
-.tiptap-content :deep(strong) { font-weight: 700; color: var(--color-ink-900); }
-.tiptap-content :deep(em) { font-style: italic; }
+.tiptap-content :deep(li) {
+    margin-bottom: 0.4em;
+}
+.tiptap-content :deep(strong) {
+    font-weight: 700;
+    color: var(--color-ink-900);
+}
+.tiptap-content :deep(em) {
+    font-style: italic;
+}
 .tiptap-content :deep(hr) {
     border: none;
     border-top: 1px solid var(--color-cream-200);
