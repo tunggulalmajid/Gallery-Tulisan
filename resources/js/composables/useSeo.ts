@@ -42,9 +42,7 @@ export function useSeo(options: SeoOptions) {
     });
 
     const meta = computed<SeoMeta>(() => {
-        const title = options.title
-            ? `${options.title} - ${appName.value}`
-            : appName.value;
+        const title = options.title || appName.value;
         const description =
             options.description ??
             `${appName.value} — kumpulan puisi, pantun, dan tulisan sastra.`;
