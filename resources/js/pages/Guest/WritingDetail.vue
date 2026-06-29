@@ -1,12 +1,22 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
+import { useSeo } from '@/composables/useSeo';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
 import type { Collection, Writing } from '@/types';
 
-defineProps<{
+const props = defineProps<{
     collection: Collection;
     writing: Writing;
 }>();
+
+const { meta } = useSeo({
+    title: props.writing.title,
+    description: props.writing.excerpt ?? undefined,
+    imagePath: props.writing.thumbnail ?? props.collection.thumbnail,
+    urlPath: `/koleksi/${props.collection.slug}/${props.writing.slug}`,
+    type: 'article',
+    publishedAt: props.writing.written_at,
+});
 
 const typeColors: Record<string, string> = {
     puisi: 'background-color: var(--color-sage-50); color: var(--color-sage-700)',
@@ -37,6 +47,29 @@ function formatDate(date: string | null): string {
 
 <template>
     <PublicLayout>
+        <Head>
+            <title>{{ meta.title }}</title>
+            <meta name="description" :content="meta.description" />
+            <link rel="canonical" :href="meta.url" />
+            <meta property="og:title" :content="meta.title" />
+            <meta property="og:description" :content="meta.description" />
+            <meta property="og:url" :content="meta.url" />
+            <meta property="og:type" content="article" />
+            <meta v-if="meta.image" property="og:image" :content="meta.image" />
+            <meta
+                v-if="meta.publishedAt"
+                property="article:published_time"
+                :content="meta.publishedAt"
+            />
+            <meta name="twitter:title" :content="meta.title" />
+            <meta name="twitter:description" :content="meta.description" />
+            <meta
+                v-if="meta.image"
+                name="twitter:image"
+                :content="meta.image"
+            />
+        </Head>
+
         <article
             class="animate-fade-up mx-auto max-w-2xl px-5 py-14 sm:px-8 sm:py-20"
         >

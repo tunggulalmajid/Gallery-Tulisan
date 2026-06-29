@@ -38,6 +38,8 @@ class HandleInertiaRequests extends Middleware
                 'success' => $request->session()->get('success'),
                 'error' => $request->session()->get('error'),
             ],
+            'appUrl' => config('app.url'),
+            'appName' => config('app.name'),
         ];
     }
 }

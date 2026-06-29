@@ -1,15 +1,36 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
-import { onMounted, ref } from 'vue';
+import { Head, Link } from '@inertiajs/vue3';
+import { computed, onMounted, ref } from 'vue';
+import { useSeo } from '@/composables/useSeo';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
 import type { AuthorProfile, Collection, HeroSection, Writing } from '@/types';
 
-defineProps<{
+const props = defineProps<{
     latestWritings: Writing[];
     latestCollections: Collection[];
     author: AuthorProfile | null;
     hero: HeroSection | null;
 }>();
+
+const seoDescription = computed(() => {
+    if (props.hero?.subheading) {
+        return props.hero.subheading;
+    }
+
+    if (props.author?.tagline) {
+        return props.author.tagline;
+    }
+
+    return undefined;
+});
+
+const { meta } = useSeo({
+    title: '',
+    description: seoDescription.value,
+    imagePath: props.hero?.image ?? props.author?.photo ?? null,
+    urlPath: '/',
+    type: 'website',
+});
 
 function thumbnailUrl(path: string | null): string {
     return path ? `/storage/${path}` : '';
@@ -35,6 +56,24 @@ onMounted(() => {
 
 <template>
     <PublicLayout>
+        <Head>
+            <title>{{ meta.title }}</title>
+            <meta name="description" :content="meta.description" />
+            <link rel="canonical" :href="meta.url" />
+            <meta property="og:title" :content="meta.title" />
+            <meta property="og:description" :content="meta.description" />
+            <meta property="og:url" :content="meta.url" />
+            <meta property="og:type" content="website" />
+            <meta v-if="meta.image" property="og:image" :content="meta.image" />
+            <meta name="twitter:title" :content="meta.title" />
+            <meta name="twitter:description" :content="meta.description" />
+            <meta
+                v-if="meta.image"
+                name="twitter:image"
+                :content="meta.image"
+            />
+        </Head>
+
         <!-- ── Hero ──────────────────────────────────────────── -->
         <section
             class="relative flex min-h-screen items-center overflow-hidden"

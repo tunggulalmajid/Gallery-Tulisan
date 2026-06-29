@@ -6,6 +6,24 @@
 
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
+        <!-- Default SEO -->
+        <meta name="description" content="{{ config('app.name') }} — kumpulan puisi, pantun, dan tulisan sastra.">
+        <meta name="robots" content="index, follow">
+        <link rel="canonical" href="{{ url()->current() }}">
+
+        <!-- Open Graph defaults -->
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="{{ config('app.name') }}">
+        <meta property="og:url" content="{{ url()->current() }}">
+        <meta property="og:title" content="{{ config('app.name') }}">
+        <meta property="og:description" content="{{ config('app.name') }} — kumpulan puisi, pantun, dan tulisan sastra.">
+        <meta property="og:locale" content="id_ID">
+
+        <!-- Twitter Card defaults -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="{{ config('app.name') }}">
+        <meta name="twitter:description" content="{{ config('app.name') }} — kumpulan puisi, pantun, dan tulisan sastra.">
+
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

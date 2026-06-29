@@ -1,11 +1,21 @@
 <script setup lang="ts">
+import { Head } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
+import { useSeo } from '@/composables/useSeo';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
 import type { AuthorProfile } from '@/types';
 
-defineProps<{
+const props = defineProps<{
     author: AuthorProfile | null;
 }>();
+
+const { meta } = useSeo({
+    title: props.author?.name ?? 'Penulis',
+    description: props.author?.bio ?? props.author?.tagline ?? undefined,
+    imagePath: props.author?.photo ?? null,
+    urlPath: '/penulis',
+    type: 'website',
+});
 
 function photoUrl(path: string | null): string {
     return path ? `/storage/${path}` : '';
@@ -29,6 +39,24 @@ onMounted(() => {
 
 <template>
     <PublicLayout>
+        <Head>
+            <title>{{ meta.title }}</title>
+            <meta name="description" :content="meta.description" />
+            <link rel="canonical" :href="meta.url" />
+            <meta property="og:title" :content="meta.title" />
+            <meta property="og:description" :content="meta.description" />
+            <meta property="og:url" :content="meta.url" />
+            <meta property="og:type" content="website" />
+            <meta v-if="meta.image" property="og:image" :content="meta.image" />
+            <meta name="twitter:title" :content="meta.title" />
+            <meta name="twitter:description" :content="meta.description" />
+            <meta
+                v-if="meta.image"
+                name="twitter:image"
+                :content="meta.image"
+            />
+        </Head>
+
         <!-- Page header -->
         <section
             class="py-14 sm:py-20"

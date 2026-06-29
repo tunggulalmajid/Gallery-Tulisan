@@ -1,13 +1,22 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Head, Link } from '@inertiajs/vue3';
 import { onMounted } from 'vue';
+import { useSeo } from '@/composables/useSeo';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
 import type { Collection, Writing, PaginatedData } from '@/types';
 
-defineProps<{
+const props = defineProps<{
     collection: Collection;
     writings: PaginatedData<Writing>;
 }>();
+
+const { meta } = useSeo({
+    title: props.collection.title,
+    description: props.collection.description ?? undefined,
+    imagePath: props.collection.thumbnail,
+    urlPath: `/koleksi/${props.collection.slug}`,
+    type: 'website',
+});
 
 const typeColors: Record<string, string> = {
     puisi: 'background-color: var(--color-sage-50); color: var(--color-sage-700)',
@@ -53,6 +62,24 @@ onMounted(() => {
 
 <template>
     <PublicLayout>
+        <Head>
+            <title>{{ meta.title }}</title>
+            <meta name="description" :content="meta.description" />
+            <link rel="canonical" :href="meta.url" />
+            <meta property="og:title" :content="meta.title" />
+            <meta property="og:description" :content="meta.description" />
+            <meta property="og:url" :content="meta.url" />
+            <meta property="og:type" content="website" />
+            <meta v-if="meta.image" property="og:image" :content="meta.image" />
+            <meta name="twitter:title" :content="meta.title" />
+            <meta name="twitter:description" :content="meta.description" />
+            <meta
+                v-if="meta.image"
+                name="twitter:image"
+                :content="meta.image"
+            />
+        </Head>
+
         <!-- Header -->
         <section
             style="

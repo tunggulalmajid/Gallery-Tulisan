@@ -8,11 +8,13 @@ use App\Http\Controllers\Admin\WritingController;
 use App\Http\Controllers\Guest\AuthorController;
 use App\Http\Controllers\Guest\CollectionController as GuestCollectionController;
 use App\Http\Controllers\Guest\HomeController;
+use App\Http\Controllers\Guest\SitemapController;
 use Illuminate\Support\Facades\Route;
 
 // ─── Guest Routes ─────────────────────────────────────────────────────────────
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/penulis', [AuthorController::class, 'index'])->name('author');
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
 
 Route::prefix('koleksi')->name('collections.')->group(function () {
     Route::get('/', [GuestCollectionController::class, 'index'])->name('index');

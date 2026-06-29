@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { Link, router } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import { onMounted, ref, watch } from 'vue';
+import { useSeo } from '@/composables/useSeo';
 import PublicLayout from '@/Layouts/PublicLayout.vue';
 import type { Collection, PaginatedData } from '@/types';
 
@@ -8,6 +9,13 @@ const props = defineProps<{
     collections: PaginatedData<Collection>;
     search: string;
 }>();
+
+const { meta } = useSeo({
+    title: 'Koleksi',
+    description: 'Jelajahi semua koleksi puisi, pantun, dan tulisan sastra.',
+    urlPath: '/koleksi',
+    type: 'website',
+});
 
 const searchQuery = ref(props.search);
 let debounce: ReturnType<typeof setTimeout>;
@@ -44,6 +52,18 @@ onMounted(() => {
 
 <template>
     <PublicLayout>
+        <Head>
+            <title>{{ meta.title }}</title>
+            <meta name="description" :content="meta.description" />
+            <link rel="canonical" :href="meta.url" />
+            <meta property="og:title" :content="meta.title" />
+            <meta property="og:description" :content="meta.description" />
+            <meta property="og:url" :content="meta.url" />
+            <meta property="og:type" content="website" />
+            <meta name="twitter:title" :content="meta.title" />
+            <meta name="twitter:description" :content="meta.description" />
+        </Head>
+
         <!-- Page header -->
         <section
             class="py-14 sm:py-20"
