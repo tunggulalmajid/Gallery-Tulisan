@@ -25,7 +25,7 @@ const seoDescription = computed(() => {
 });
 
 const { meta } = useSeo({
-    title: '',
+    title: 'Beranda',
     description: seoDescription.value,
     imagePath: props.hero?.image ?? props.author?.photo ?? null,
     urlPath: '/',
