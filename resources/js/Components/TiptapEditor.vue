@@ -307,53 +307,57 @@ function toolButtons(): ToolBtn[] {
     </div>
 
     <!-- YouTube modal -->
-    <div
-        v-if="showYoutubeModal"
-        class="fixed inset-0 z-50 flex items-center justify-center"
-        style="background-color: rgba(0, 0, 0, 0.4)"
-    >
+    <Teleport to="body">
         <div
-            class="mx-4 w-full max-w-md rounded-2xl p-6"
-            style="background-color: white"
+            v-if="showYoutubeModal"
+            class="fixed inset-0 z-[9999] flex items-center justify-center"
+            style="background-color: rgba(0, 0, 0, 0.5)"
+            @click.self="showYoutubeModal = false"
         >
-            <h3
-                class="mb-4 text-base font-semibold"
-                style="
-                    font-family: var(--font-serif);
-                    color: var(--color-ink-800);
-                "
+            <div
+                class="mx-4 w-full max-w-md rounded-2xl p-6 shadow-xl"
+                style="background-color: white"
             >
-                Embed Video YouTube
-            </h3>
-            <input
-                v-model="youtubeUrl"
-                type="url"
-                placeholder="https://www.youtube.com/watch?v=..."
-                class="w-full rounded-lg px-4 py-2.5 text-sm outline-none"
-                style="
-                    border: 1px solid var(--color-cream-300);
-                    background-color: var(--color-cream-50);
-                    color: var(--color-ink-800);
-                "
-            />
-            <div class="mt-4 flex justify-end gap-2">
-                <button
-                    type="button"
-                    class="rounded-lg px-4 py-2 text-sm"
-                    style="color: var(--color-ink-500)"
-                    @click="showYoutubeModal = false"
+                <h3
+                    class="mb-4 text-base font-semibold"
+                    style="
+                        font-family: var(--font-serif);
+                        color: var(--color-ink-800);
+                    "
                 >
-                    Batal
-                </button>
-                <button
-                    type="button"
-                    class="rounded-lg px-4 py-2 text-sm text-white"
-                    style="background-color: var(--color-blush-500)"
-                    @click="insertYoutube"
-                >
-                    Tambahkan
-                </button>
+                    Embed Video YouTube
+                </h3>
+                <input
+                    v-model="youtubeUrl"
+                    type="url"
+                    placeholder="https://www.youtube.com/watch?v=..."
+                    class="w-full rounded-lg px-4 py-2.5 text-sm outline-none"
+                    style="
+                        border: 1px solid var(--color-cream-300);
+                        background-color: var(--color-cream-50);
+                        color: var(--color-ink-800);
+                    "
+                    @keyup.enter="insertYoutube"
+                />
+                <div class="mt-4 flex justify-end gap-2">
+                    <button
+                        type="button"
+                        class="rounded-lg px-4 py-2 text-sm"
+                        style="color: var(--color-ink-500)"
+                        @click="showYoutubeModal = false"
+                    >
+                        Batal
+                    </button>
+                    <button
+                        type="button"
+                        class="rounded-lg px-4 py-2 text-sm text-white"
+                        style="background-color: var(--color-blush-500)"
+                        @click="insertYoutube"
+                    >
+                        Tambahkan
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
+    </Teleport>
 </template>
